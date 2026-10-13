@@ -1,8 +1,64 @@
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+</head>
+<body>
 
-    </head>
-    <body>
-        <button>Hello</button>
-    </body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="index.html">Expense Tracker</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="add.html">Add</a>
+        <a href="expenses.html">Expenses</a>
+        <a href="currency.html">Currency</a>
+      </nav>
+      <p class="clock" id="clock">--:--:--</p>
+    </div>
+  </header>
+
+  <main class="container page">
+
+    <section class="hero">
+      <h1>Track your student expenses</h1>
+      <p>
+        A small application built step by step during the Web Development course.
+        Everything you add is saved in your browser with <strong>localStorage</strong>,
+        so it is still here after you close the tab.
+      </p>
+      <a class="btn btn-primary btn-inline" href="add.html">Add your first expense</a>
+    </section>
+
+    <!-- Quick stats filled by js/index.js -->
+    <section class="stats">
+      <div class="card stat">
+        <span class="stat-label">Expenses saved</span>
+        <span class="stat-value" id="stat-count">0</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Total spent</span>
+        <span class="stat-value" id="stat-total">0 Lek</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Most recent</span>
+        <span class="stat-value stat-small" id="stat-latest">none yet</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Pages in this application</h2>
+      <ul class="page-list">
+        <li><a href="add.html">Add</a> a new expense with a validated form.</li>
+        <li><a href="expenses.html">Expenses</a> shows totals and lists everything, with search, filter, edit and delete.</li>
+        <li><a href="currency.html">Currency</a> converts your total using a live exchange-rate API.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+</body>
 </html>

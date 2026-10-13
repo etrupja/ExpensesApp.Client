@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenses</title>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="index.html">Expense Tracker</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="add.html">Add</a>
+        <a href="expenses.html">Expenses</a>
+        <a href="currency.html">Currency</a>
+      </nav>
+      <p class="clock" id="clock">--:--:--</p>
+    </div>
+  </header>
+
+  <main class="container page">
+
+    <!-- Quick stats, updated by js/expenses.js -->
+    <section class="stats">
+      <div class="card stat">
+        <span class="stat-label">Total spent</span>
+        <span class="stat-value" id="stat-total">0 Lek</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Number of expenses</span>
+        <span class="stat-value" id="stat-count">0</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Average per expense</span>
+        <span class="stat-value" id="stat-average">0 Lek</span>
+      </div>
+      <div class="card stat">
+        <span class="stat-label">Biggest expense</span>
+        <span class="stat-value stat-small" id="stat-biggest">none</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <h2>Expenses <span class="count" id="count"></span></h2>
+        <div class="toolbar-controls">
+          <input type="search" id="search" placeholder="Search by title">
+          <select id="filter-category">
+            <option value="">All categories</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Books">Books</option>
+            <option value="Rent">Rent</option>
+            <option value="Fun">Fun</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <table class="expense-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th class="num">Amount</th>
+            <th class="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="expense-list">
+          <!-- rows are rendered by js/expenses.js -->
+        </tbody>
+      </table>
+
+      <p class="empty" id="empty-message">
+        No expenses yet. <a href="add.html">Add one</a> or
+        <button type="button" class="link-btn" id="load-sample">load sample data</button>.
+      </p>
+
+      <div class="danger-zone">
+        <button type="button" class="btn btn-danger" id="clear-all">Delete all expenses</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Edit modal: hidden until JavaScript adds the "open" class -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal">
+      <h2>Edit expense</h2>
+      <form id="edit-form" novalidate>
+        <input type="hidden" id="edit-id">
+
+        <div class="field">
+          <label for="edit-title">Title</label>
+          <input type="text" id="edit-title" name="title" required>
+          <small class="error" data-for="title"></small>
+        </div>
+
+        <div class="field">
+          <label for="edit-amount">Amount (Lek)</label>
+          <input type="number" id="edit-amount" name="amount" min="1" step="1" required>
+          <small class="error" data-for="amount"></small>
+        </div>
+
+        <div class="field">
+          <label for="edit-category">Category</label>
+          <select id="edit-category" name="category" required>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Books">Books</option>
+            <option value="Rent">Rent</option>
+            <option value="Fun">Fun</option>
+            <option value="Other">Other</option>
+          </select>
+          <small class="error" data-for="category"></small>
+        </div>
+
+        <div class="field">
+          <label for="edit-date">Date</label>
+          <input type="date" id="edit-date" name="date" required>
+          <small class="error" data-for="date"></small>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancel-edit">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</body>
+</html>
