@@ -1,0 +1,57 @@
+/* Small additions on top of Bootstrap (loaded from cdnjs in each page). */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bs-body-tertiary-bg, #f8f9fa);
+}
+
+main {
+  flex: 1;
+}
+
+/* Live clock in the navbar */
+.clock {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Stat cards */
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.stat-value.stat-small {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Toast message shown by JavaScript */
+.toast-message {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%) translateY(1rem);
+  padding: 0.6rem 1.2rem;
+  background: var(--bs-dark);
+  color: #fff;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--bs-box-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1080;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

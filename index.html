@@ -4,61 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles/site.css">
 </head>
 <body>
 
   <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="index.html">Expense Tracker</a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="add.html">Add</a>
-        <a href="expenses.html">Expenses</a>
-        <a href="currency.html">Currency</a>
-      </nav>
-      <p class="clock" id="clock">--:--:--</p>
-    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand fw-semibold" href="index.html">Expense Tracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-nav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="add.html">Add</a></li>
+            <li class="nav-item"><a class="nav-link" href="expenses.html">Expenses</a></li>
+            <li class="nav-item"><a class="nav-link" href="currency.html">Currency</a></li>
+          </ul>
+          <span class="navbar-text clock" id="clock">--:--:--</span>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <main class="container page">
+  <main class="container py-4">
 
-    <section class="hero">
-      <h1>Track your student expenses</h1>
-      <p>
+    <section class="p-4 p-md-5 mb-4 bg-primary text-white rounded-3">
+      <h1 class="display-6 fw-bold">Track your student expenses</h1>
+      <p class="lead mb-4">
         A small application built step by step during the Web Development course.
         Everything you add is saved in your browser with <strong>localStorage</strong>,
         so it is still here after you close the tab.
       </p>
-      <a class="btn btn-primary btn-inline" href="add.html">Add your first expense</a>
+      <a class="btn btn-light btn-lg" href="add.html">Add your first expense</a>
     </section>
 
     <!-- Quick stats filled by js/index.js -->
-    <section class="stats">
-      <div class="card stat">
-        <span class="stat-label">Expenses saved</span>
-        <span class="stat-value" id="stat-count">0</span>
+    <section class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="stat-label">Expenses saved</span>
+            <span class="stat-value" id="stat-count">0</span>
+          </div>
+        </div>
       </div>
-      <div class="card stat">
-        <span class="stat-label">Total spent</span>
-        <span class="stat-value" id="stat-total">0 Lek</span>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="stat-label">Total spent</span>
+            <span class="stat-value" id="stat-total">0 Lek</span>
+          </div>
+        </div>
       </div>
-      <div class="card stat">
-        <span class="stat-label">Most recent</span>
-        <span class="stat-value stat-small" id="stat-latest">none yet</span>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="stat-label">Most recent</span>
+            <span class="stat-value stat-small" id="stat-latest">none yet</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Pages in this application</h2>
-      <ul class="page-list">
-        <li><a href="add.html">Add</a> a new expense with a validated form.</li>
-        <li><a href="expenses.html">Expenses</a> shows totals and lists everything, with search, filter, edit and delete.</li>
-        <li><a href="currency.html">Currency</a> converts your total using a live exchange-rate API.</li>
-      </ul>
+    <section class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h4 card-title">Pages in this application</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item px-0"><a href="add.html">Add</a> a new expense with a validated form.</li>
+          <li class="list-group-item px-0"><a href="expenses.html">Expenses</a> shows totals and lists everything, with search, filter, edit and delete.</li>
+          <li class="list-group-item px-0"><a href="currency.html">Currency</a> converts your total using a live exchange-rate API.</li>
+        </ul>
+      </div>
     </section>
 
   </main>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast-message" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
