@@ -1,137 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expenses</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A simple student expense tracker that saves expenses in your browser.">
+<title>Expenses</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#172033;background:#f4f6fb;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:#3157c8;text-decoration:none}a:hover{text-decoration:underline}
+.site-header{background:#172033;color:white;box-shadow:0 2px 12px #10182822}.container{width:min(1080px,calc(100% - 32px));margin:auto}
+.header-row{min-height:68px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}.brand{font-size:1.2rem;font-weight:800;color:white;margin-right:auto}.nav{display:flex;gap:18px;flex-wrap:wrap}.nav a{color:#e8edff;font-weight:600}.clock{margin:0;color:#c7d2fe;font-variant-numeric:tabular-nums}
+.page{padding:36px 0 60px}.narrow{max-width:650px}.hero{padding:38px;border-radius:18px;background:linear-gradient(130deg,#243b76,#526ee8);color:white;margin-bottom:24px}.hero h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 12px}.hero p{line-height:1.65;max-width:680px;color:#e8edff}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer;background:#e7eaf2;color:#172033}.btn:hover{filter:brightness(.96)}.btn-primary{background:#3157c8;color:white}.btn-danger{background:#c9364f;color:white}.btn-inline{margin-top:10px}
+.card{background:white;border:1px solid #e5e9f2;border-radius:14px;padding:24px;box-shadow:0 5px 18px #1c2b4a0a;margin-bottom:22px}.card h2{margin:0 0 20px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:22px}.stat{margin:0;display:flex;flex-direction:column;gap:8px}.stat-label{color:#64708a;font-size:.9rem}.stat-value{font-size:1.55rem;font-weight:800;overflow-wrap:anywhere}.stat-small{font-size:1.05rem}.page-list{line-height:2;padding-left:20px}.field{margin-bottom:18px}.field label{display:block;font-weight:700;margin-bottom:7px}.field input,.field select,.toolbar-controls input,.toolbar-controls select{width:100%;padding:11px 12px;border:1px solid #ccd3e0;border-radius:8px;font:inherit;background:white;color:#172033}.field input:focus,.field select:focus,.toolbar-controls input:focus,.toolbar-controls select:focus{outline:3px solid #3157c822;border-color:#3157c8}.error{display:block;color:#bd263d;min-height:1.2em;margin-top:4px}.hint,.empty{color:#64708a}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:white;padding:12px 18px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;z-index:20}.toast.show{opacity:1;transform:translateY(0)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.toolbar h2{margin:0}.toolbar-controls{display:flex;gap:10px;flex-wrap:wrap}.toolbar-controls input{width:min(240px,100%)}.toolbar-controls select{width:auto;min-width:160px}
+.table-wrap{overflow-x:auto;margin-top:18px}.expense-table{width:100%;border-collapse:collapse;min-width:650px}.expense-table th,.expense-table td{text-align:left;padding:13px 10px;border-bottom:1px solid #e9edf4}.expense-table th{font-size:.85rem;color:#65708a}.expense-table .num{text-align:right}.expense-table td.num{text-align:right;font-weight:700}.actions-cell{white-space:nowrap}.small-btn{border:0;border-radius:7px;padding:7px 10px;cursor:pointer;font-weight:700;margin-right:5px}.edit-btn{background:#e9efff;color:#2448ad}.delete-btn{background:#ffeaed;color:#b4233b}.danger-zone{margin-top:24px;display:flex;justify-content:flex-end}.link-btn{border:0;background:none;color:#3157c8;font:inherit;cursor:pointer;padding:0;text-decoration:underline}
+.modal-overlay{display:none;position:fixed;inset:0;background:#10182899;z-index:10;padding:20px;overflow:auto;align-items:center;justify-content:center}.modal-overlay.open{display:flex}.modal{background:white;width:min(100%,560px);border-radius:14px;padding:25px;box-shadow:0 20px 60px #0003}.modal h2{margin-top:0}.modal-actions{display:flex;justify-content:flex-end;gap:10px}
+@media(max-width:650px){.header-row{padding:14px 0;gap:12px}.brand{width:100%}.nav{gap:14px}.clock{margin-left:auto}.hero{padding:26px}.card{padding:18px}.toolbar-controls{width:100%}.toolbar-controls input,.toolbar-controls select{width:100%}}
+</style>
 </head>
 <body>
+<header class="site-header"><div class="container header-row">
+<a class="brand" href="index.html">Expense Tracker</a>
+<nav class="nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="add.html">Add expense</a><a href="expenses.html">Expenses</a></nav>
+<p class="clock" id="clock" aria-live="off">--:--:--</p>
+</div></header>
+<main class="container page">
+<section class="stats" aria-label="Expense summary">
+<div class="card stat"><span class="stat-label">Total spent</span><span class="stat-value" id="stat-total">0 Lek</span></div>
+<div class="card stat"><span class="stat-label">Number of expenses</span><span class="stat-value" id="stat-count">0</span></div>
+<div class="card stat"><span class="stat-label">Average per expense</span><span class="stat-value" id="stat-average">0 Lek</span></div>
+<div class="card stat"><span class="stat-label">Biggest expense</span><span class="stat-value stat-small" id="stat-biggest">None</span></div>
+</section>
+<section class="card"><div class="toolbar"><h2>Expenses <span class="count" id="count"></span></h2><div class="toolbar-controls"><input type="search" id="search" aria-label="Search expenses by title" placeholder="Search by title"><select id="filter-category" aria-label="Filter by category"><option value="">All categories</option><option value="Food">Food</option><option value="Transport">Transport</option><option value="Books">Books</option><option value="Rent">Rent</option><option value="Fun">Fun</option><option value="Other">Other</option></select></div></div>
+<div class="table-wrap"><table class="expense-table"><thead><tr><th>Date</th><th>Title</th><th>Category</th><th class="num">Amount</th><th>Actions</th></tr></thead><tbody id="expense-list"></tbody></table></div>
+<p class="empty" id="empty-message">No expenses yet. <a href="add.html">Add one</a> or <button type="button" class="link-btn" id="load-sample">load sample data</button>.</p>
+<div class="danger-zone"><button type="button" class="btn btn-danger" id="clear-all">Delete all expenses</button></div></section>
+</main>
+<div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-heading"><div class="modal"><h2 id="edit-heading">Edit expense</h2>
+<form id="edit-form" novalidate><input type="hidden" id="edit-id">
+<div class="field"><label for="edit-title">Title</label><input id="edit-title" name="title" maxlength="100" required><small class="error" data-for="title"></small></div>
+<div class="field"><label for="edit-amount">Amount (Lek)</label><input id="edit-amount" name="amount" type="number" min="0.01" step="0.01" required><small class="error" data-for="amount"></small></div>
+<div class="field"><label for="edit-category">Category</label><select id="edit-category" name="category"><option value="Food">Food</option><option value="Transport">Transport</option><option value="Books">Books</option><option value="Rent">Rent</option><option value="Fun">Fun</option><option value="Other">Other</option></select><small class="error" data-for="category"></small></div>
+<div class="field"><label for="edit-date">Date</label><input id="edit-date" name="date" type="date" required><small class="error" data-for="date"></small></div>
+<div class="modal-actions"><button type="button" class="btn" id="cancel-edit">Cancel</button><button type="submit" class="btn btn-primary">Save changes</button></div></form></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
 
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="index.html">Expense Tracker</a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="add.html">Add</a>
-        <a href="expenses.html">Expenses</a>
-        <a href="currency.html">Currency</a>
-      </nav>
-      <p class="clock" id="clock">--:--:--</p>
-    </div>
-  </header>
+const STORAGE_KEY='student-expense-tracker-v1';
+const CATEGORIES=['Food','Transport','Books','Rent','Fun','Other'];
+function getExpenses(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(v)?v.filter(x=>x&&typeof x==='object'):[]}catch{return []}}
+function saveExpenses(items){localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}
+function money(n){return new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(Number(n)||0)+' Lek'}
+function dateLabel(s){if(!s)return '';const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString()}
+function showToast(message){const el=document.getElementById('toast');if(!el)return;el.textContent=message;el.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.remove('show'),2400)}
+function startClock(){const el=document.getElementById('clock');if(!el)return;const tick=()=>el.textContent=new Date().toLocaleTimeString();tick();setInterval(tick,1000)}
+function makeId(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2))}
+function validExpense(title,amount,category,date){return title.trim().length>0&&Number.isFinite(Number(amount))&&Number(amount)>0&&CATEGORIES.includes(category)&&/^\\d{4}-\\d{2}-\\d{2}$/.test(date)}
+startClock();
 
-  <main class="container page">
 
-    <!-- Quick stats, updated by js/expenses.js -->
-    <section class="stats">
-      <div class="card stat">
-        <span class="stat-label">Total spent</span>
-        <span class="stat-value" id="stat-total">0 Lek</span>
-      </div>
-      <div class="card stat">
-        <span class="stat-label">Number of expenses</span>
-        <span class="stat-value" id="stat-count">0</span>
-      </div>
-      <div class="card stat">
-        <span class="stat-label">Average per expense</span>
-        <span class="stat-value" id="stat-average">0 Lek</span>
-      </div>
-      <div class="card stat">
-        <span class="stat-label">Biggest expense</span>
-        <span class="stat-value stat-small" id="stat-biggest">none</span>
-      </div>
-    </section>
+const list=document.getElementById('expense-list'),search=document.getElementById('search'),filter=document.getElementById('filter-category'),modal=document.getElementById('edit-modal'),editForm=document.getElementById('edit-form');
+let expenses=getExpenses();
+function update(){const total=expenses.reduce((s,x)=>s+Number(x.amount||0),0);document.getElementById('stat-total').textContent=money(total);document.getElementById('stat-count').textContent=expenses.length;document.getElementById('stat-average').textContent=money(expenses.length?total/expenses.length:0);const biggest=expenses.slice().sort((a,b)=>Number(b.amount)-Number(a.amount))[0];document.getElementById('stat-biggest').textContent=biggest?`${biggest.title} (${money(biggest.amount)})`:'None';
+const term=search.value.trim().toLowerCase(),cat=filter.value;const shown=expenses.filter(x=>x.title.toLowerCase().includes(term)&&(!cat||x.category===cat)).sort((a,b)=>(b.date||'').localeCompare(a.date||''));list.replaceChildren();document.getElementById('count').textContent=`(${shown.length})`;document.getElementById('empty-message').hidden=shown.length!==0;
+for(const x of shown){const tr=document.createElement('tr');for(const value of [dateLabel(x.date),x.title,x.category]){const td=document.createElement('td');td.textContent=value;tr.append(td)}const amount=document.createElement('td');amount.className='num';amount.textContent=money(x.amount);tr.append(amount);const actions=document.createElement('td');actions.className='actions-cell';const edit=document.createElement('button');edit.className='small-btn edit-btn';edit.textContent='Edit';edit.type='button';edit.addEventListener('click',()=>openEdit(x.id));const del=document.createElement('button');del.className='small-btn delete-btn';del.textContent='Delete';del.type='button';del.addEventListener('click',()=>removeExpense(x.id));actions.append(edit,del);tr.append(actions);list.append(tr)}
+}
+function persist(){saveExpenses(expenses);update()}
+function openEdit(id){const x=expenses.find(v=>v.id===id);if(!x)return;document.getElementById('edit-id').value=x.id;editForm.elements.title.value=x.title;editForm.elements.amount.value=x.amount;editForm.elements.category.value=x.category;editForm.elements.date.value=x.date;modal.classList.add('open');document.getElementById('edit-title').focus()}
+function closeEdit(){modal.classList.remove('open');editForm.reset()}
+function removeExpense(id){if(!confirm('Delete this expense?'))return;expenses=expenses.filter(x=>x.id!==id);persist();showToast('Expense deleted.')}
+search.addEventListener('input',update);filter.addEventListener('change',update);document.getElementById('cancel-edit').addEventListener('click',closeEdit);
+modal.addEventListener('click',e=>{if(e.target===modal)closeEdit()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEdit()});
+editForm.addEventListener('submit',e=>{e.preventDefault();const id=document.getElementById('edit-id').value,data={title:editForm.elements.title.value.trim(),amount:Number(editForm.elements.amount.value),category:editForm.elements.category.value,date:editForm.elements.date.value};let ok=true;
+for(const key of ['title','amount','category','date']){let msg='';if(key==='title'&&!data.title)msg='Please enter a title.';if(key==='amount'&&(!Number.isFinite(data.amount)||data.amount<=0))msg='Enter an amount greater than zero.';if(key==='category'&&!CATEGORIES.includes(data.category))msg='Choose a category.';if(key==='date'&&(!data.date||data.date>new Date().toISOString().slice(0,10)))msg='Choose a valid date.';editForm.querySelector(`[data-for="${key}"]`).textContent=msg;if(msg)ok=false}if(!ok)return;expenses=expenses.map(x=>x.id===id?{...x,...data}:x);persist();closeEdit();showToast('Changes saved.')});
+document.getElementById('clear-all').addEventListener('click',()=>{if(!expenses.length)return;if(!confirm('Permanently delete all expenses?'))return;expenses=[];persist();showToast('All expenses deleted.')});
+document.getElementById('load-sample').addEventListener('click',()=>{if(expenses.length&&!confirm('Add sample expenses to your existing list?'))return;const today=new Date();const iso=d=>new Date(d).toISOString().slice(0,10);expenses.push({id:makeId(),title:'Groceries',amount:1250,category:'Food',date:iso(today)},{id:makeId(),title:'Bus pass',amount:600,category:'Transport',date:iso(new Date(today-86400000))},{id:makeId(),title:'Course notebook',amount:450,category:'Books',date:iso(new Date(today-2*86400000))});persist();showToast('Sample expenses added.')});
+update();
 
-    <section class="card">
-      <div class="toolbar">
-        <h2>Expenses <span class="count" id="count"></span></h2>
-        <div class="toolbar-controls">
-          <input type="search" id="search" placeholder="Search by title">
-          <select id="filter-category">
-            <option value="">All categories</option>
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Books">Books</option>
-            <option value="Rent">Rent</option>
-            <option value="Fun">Fun</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-      </div>
-
-      <table class="expense-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th class="num">Amount</th>
-            <th class="actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="expense-list">
-          <!-- rows are rendered by js/expenses.js -->
-        </tbody>
-      </table>
-
-      <p class="empty" id="empty-message">
-        No expenses yet. <a href="add.html">Add one</a> or
-        <button type="button" class="link-btn" id="load-sample">load sample data</button>.
-      </p>
-
-      <div class="danger-zone">
-        <button type="button" class="btn btn-danger" id="clear-all">Delete all expenses</button>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Edit modal: hidden until JavaScript adds the "open" class -->
-  <div class="modal-overlay" id="edit-modal">
-    <div class="modal">
-      <h2>Edit expense</h2>
-      <form id="edit-form" novalidate>
-        <input type="hidden" id="edit-id">
-
-        <div class="field">
-          <label for="edit-title">Title</label>
-          <input type="text" id="edit-title" name="title" required>
-          <small class="error" data-for="title"></small>
-        </div>
-
-        <div class="field">
-          <label for="edit-amount">Amount (Lek)</label>
-          <input type="number" id="edit-amount" name="amount" min="1" step="1" required>
-          <small class="error" data-for="amount"></small>
-        </div>
-
-        <div class="field">
-          <label for="edit-category">Category</label>
-          <select id="edit-category" name="category" required>
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Books">Books</option>
-            <option value="Rent">Rent</option>
-            <option value="Fun">Fun</option>
-            <option value="Other">Other</option>
-          </select>
-          <small class="error" data-for="category"></small>
-        </div>
-
-        <div class="field">
-          <label for="edit-date">Date</label>
-          <input type="date" id="edit-date" name="date" required>
-          <small class="error" data-for="date"></small>
-        </div>
-
-        <div class="modal-actions">
-          <button type="button" class="btn" id="cancel-edit">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-</body>
-</html>
+</script>
+</body></html>
