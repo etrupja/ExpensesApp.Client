@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //<th scope="col" class="text-end">Actions</th>
          let actionTd = document.createElement('td');
-        actionTd.innerHTML = '<button style="color:red"> Kliko </button>';
+        actionTd.innerHTML = '<button style="color:green"> Updated </button>';
 
 
         tblRow.append(dateTd);
