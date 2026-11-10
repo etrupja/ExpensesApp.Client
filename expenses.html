@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expenses</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
 
@@ -14,7 +16,6 @@
         <a href="index.html">Home</a>
         <a href="add.html">Add</a>
         <a href="expenses.html">Expenses</a>
-        <a href="currency.html">Currency</a>
       </nav>
       <p class="clock" id="clock">--:--:--</p>
     </div>
@@ -22,7 +23,6 @@
 
   <main class="container page">
 
-    <!-- Quick stats, updated by js/expenses.js -->
     <section class="stats">
       <div class="card stat">
         <span class="stat-label">Total spent</span>
@@ -59,6 +59,7 @@
         </div>
       </div>
 
+      <div class="table-wrap">
       <table class="expense-table">
         <thead>
           <tr>
@@ -70,9 +71,9 @@
           </tr>
         </thead>
         <tbody id="expense-list">
-          <!-- rows are rendered by js/expenses.js -->
         </tbody>
       </table>
+      </div>
 
       <p class="empty" id="empty-message">
         No expenses yet. <a href="add.html">Add one</a> or
