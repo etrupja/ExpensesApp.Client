@@ -1,64 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A simple student expense tracker that saves expenses in your browser.">
+<title>Expense Tracker</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#172033;background:#f4f6fb;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:#3157c8;text-decoration:none}a:hover{text-decoration:underline}
+.site-header{background:#172033;color:white;box-shadow:0 2px 12px #10182822}.container{width:min(1080px,calc(100% - 32px));margin:auto}
+.header-row{min-height:68px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}.brand{font-size:1.2rem;font-weight:800;color:white;margin-right:auto}.nav{display:flex;gap:18px;flex-wrap:wrap}.nav a{color:#e8edff;font-weight:600}.clock{margin:0;color:#c7d2fe;font-variant-numeric:tabular-nums}
+.page{padding:36px 0 60px}.narrow{max-width:650px}.hero{padding:38px;border-radius:18px;background:linear-gradient(130deg,#243b76,#526ee8);color:white;margin-bottom:24px}.hero h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 12px}.hero p{line-height:1.65;max-width:680px;color:#e8edff}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer;background:#e7eaf2;color:#172033}.btn:hover{filter:brightness(.96)}.btn-primary{background:#3157c8;color:white}.btn-danger{background:#c9364f;color:white}.btn-inline{margin-top:10px}
+.card{background:white;border:1px solid #e5e9f2;border-radius:14px;padding:24px;box-shadow:0 5px 18px #1c2b4a0a;margin-bottom:22px}.card h2{margin:0 0 20px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:22px}.stat{margin:0;display:flex;flex-direction:column;gap:8px}.stat-label{color:#64708a;font-size:.9rem}.stat-value{font-size:1.55rem;font-weight:800;overflow-wrap:anywhere}.stat-small{font-size:1.05rem}.page-list{line-height:2;padding-left:20px}.field{margin-bottom:18px}.field label{display:block;font-weight:700;margin-bottom:7px}.field input,.field select,.toolbar-controls input,.toolbar-controls select{width:100%;padding:11px 12px;border:1px solid #ccd3e0;border-radius:8px;font:inherit;background:white;color:#172033}.field input:focus,.field select:focus,.toolbar-controls input:focus,.toolbar-controls select:focus{outline:3px solid #3157c822;border-color:#3157c8}.error{display:block;color:#bd263d;min-height:1.2em;margin-top:4px}.hint,.empty{color:#64708a}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:white;padding:12px 18px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;z-index:20}.toast.show{opacity:1;transform:translateY(0)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.toolbar h2{margin:0}.toolbar-controls{display:flex;gap:10px;flex-wrap:wrap}.toolbar-controls input{width:min(240px,100%)}.toolbar-controls select{width:auto;min-width:160px}
+.table-wrap{overflow-x:auto;margin-top:18px}.expense-table{width:100%;border-collapse:collapse;min-width:650px}.expense-table th,.expense-table td{text-align:left;padding:13px 10px;border-bottom:1px solid #e9edf4}.expense-table th{font-size:.85rem;color:#65708a}.expense-table .num{text-align:right}.expense-table td.num{text-align:right;font-weight:700}.actions-cell{white-space:nowrap}.small-btn{border:0;border-radius:7px;padding:7px 10px;cursor:pointer;font-weight:700;margin-right:5px}.edit-btn{background:#e9efff;color:#2448ad}.delete-btn{background:#ffeaed;color:#b4233b}.danger-zone{margin-top:24px;display:flex;justify-content:flex-end}.link-btn{border:0;background:none;color:#3157c8;font:inherit;cursor:pointer;padding:0;text-decoration:underline}
+.modal-overlay{display:none;position:fixed;inset:0;background:#10182899;z-index:10;padding:20px;overflow:auto;align-items:center;justify-content:center}.modal-overlay.open{display:flex}.modal{background:white;width:min(100%,560px);border-radius:14px;padding:25px;box-shadow:0 20px 60px #0003}.modal h2{margin-top:0}.modal-actions{display:flex;justify-content:flex-end;gap:10px}
+@media(max-width:650px){.header-row{padding:14px 0;gap:12px}.brand{width:100%}.nav{gap:14px}.clock{margin-left:auto}.hero{padding:26px}.card{padding:18px}.toolbar-controls{width:100%}.toolbar-controls input,.toolbar-controls select{width:100%}}
+</style>
 </head>
 <body>
+<header class="site-header"><div class="container header-row">
+<a class="brand" href="index.html">Expense Tracker</a>
+<nav class="nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="add.html">Add expense</a><a href="expenses.html">Expenses</a></nav>
+<p class="clock" id="clock" aria-live="off">--:--:--</p>
+</div></header>
+<main class="container page">
+<section class="hero"><h1>Track your student expenses</h1><p>Add, organize and review your spending. Your data is saved locally in this browser and stays available when you return.</p><a class="btn btn-primary btn-inline" href="add.html">Add an expense</a></section>
+<section class="stats" aria-label="Expense summary">
+<div class="card stat"><span class="stat-label">Expenses saved</span><span class="stat-value" id="stat-count">0</span></div>
+<div class="card stat"><span class="stat-label">Total spent</span><span class="stat-value" id="stat-total">0 Lek</span></div>
+<div class="card stat"><span class="stat-label">Most recent</span><span class="stat-value stat-small" id="stat-latest">None yet</span></div>
+</section>
+<section class="card"><h2>Manage your expenses</h2><ul class="page-list"><li><a href="add.html">Add expense</a> using the validated form.</li><li><a href="expenses.html">View expenses</a>, search, filter, edit or delete them.</li></ul></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
 
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="index.html">Expense Tracker</a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="add.html">Add</a>
-        <a href="expenses.html">Expenses</a>
-        <a href="currency.html">Currency</a>
-      </nav>
-      <p class="clock" id="clock">--:--:--</p>
-    </div>
-  </header>
+const STORAGE_KEY='student-expense-tracker-v1';
+const CATEGORIES=['Food','Transport','Books','Rent','Fun','Other'];
+function getExpenses(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(v)?v.filter(x=>x&&typeof x==='object'):[]}catch{return []}}
+function saveExpenses(items){localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}
+function money(n){return new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(Number(n)||0)+' Lek'}
+function dateLabel(s){if(!s)return '';const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString()}
+function showToast(message){const el=document.getElementById('toast');if(!el)return;el.textContent=message;el.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.remove('show'),2400)}
+function startClock(){const el=document.getElementById('clock');if(!el)return;const tick=()=>el.textContent=new Date().toLocaleTimeString();tick();setInterval(tick,1000)}
+function makeId(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2))}
+function validExpense(title,amount,category,date){return title.trim().length>0&&Number.isFinite(Number(amount))&&Number(amount)>0&&CATEGORIES.includes(category)&&/^\\d{4}-\\d{2}-\\d{2}$/.test(date)}
+startClock();
 
-  <main class="container page">
 
-    <section class="hero">
-      <h1>Track your student expenses</h1>
-      <p>
-        A small application built step by step during the Web Development course.
-        Everything you add is saved in your browser with <strong>localStorage</strong>,
-        so it is still here after you close the tab.
-      </p>
-      <a class="btn btn-primary btn-inline" href="add.html">Add your first expense</a>
-    </section>
+const items=getExpenses();document.getElementById('stat-count').textContent=items.length;
+document.getElementById('stat-total').textContent=money(items.reduce((s,x)=>s+Number(x.amount||0),0));
+const latest=items.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0];
+document.getElementById('stat-latest').textContent=latest?`${latest.title} (${dateLabel(latest.date)})`:'None yet';
 
-    <!-- Quick stats filled by js/index.js -->
-    <section class="stats">
-      <div class="card stat">
-        <span class="stat-label">Expenses saved</span>
-        <span class="stat-value" id="stat-count">0</span>
-      </div>
-      <div class="card stat">
-        <span class="stat-label">Total spent</span>
-        <span class="stat-value" id="stat-total">0 Lek</span>
-      </div>
-      <div class="card stat">
-        <span class="stat-label">Most recent</span>
-        <span class="stat-value stat-small" id="stat-latest">none yet</span>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Pages in this application</h2>
-      <ul class="page-list">
-        <li><a href="add.html">Add</a> a new expense with a validated form.</li>
-        <li><a href="expenses.html">Expenses</a> shows totals and lists everything, with search, filter, edit and delete.</li>
-        <li><a href="currency.html">Currency</a> converts your total using a live exchange-rate API.</li>
-      </ul>
-    </section>
-
-  </main>
-
-  <div class="toast" id="toast"></div>
-</body>
-</html>
+</script>
+</body></html>
