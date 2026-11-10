@@ -1,0 +1,638 @@
+
+/* ================================
+   EXPENSE TRACKER - STYLE.CSS
+================================ */
+
+/* 1. Global styles */
+:root {
+  --primary: #635bdb;
+  --primary-dark: #5148c7;
+  --background: #f5f6fb;
+  --white: #ffffff;
+  --text: #202236;
+  --muted: #73778c;
+  --border: #e5e7f0;
+  --danger: #dc4c64;
+  --success: #21875a;
+  --shadow: 0 8px 28px rgba(31, 35, 70, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* 2. Layout */
+.container {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.page {
+  padding-top: 38px;
+  padding-bottom: 60px;
+}
+
+.page.narrow {
+  max-width: 680px;
+}
+
+/* 3. Header and navigation */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-row {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.brand {
+  color: var(--text);
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.nav a {
+  padding: 9px 13px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: bold;
+}
+
+.nav a:hover {
+  background: #eeedff;
+  color: var(--primary);
+}
+
+.clock {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* 4. Headings */
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 22px;
+  font-size: 23px;
+}
+
+p {
+  margin-top: 0;
+}
+
+/* 5. Cards */
+.card {
+  padding: 26px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.page > section + section {
+  margin-top: 24px;
+}
+
+/* 6. Homepage hero */
+.hero {
+  padding: 55px;
+  margin-bottom: 28px;
+  border-radius: 18px;
+  background: linear-gradient(125deg, #29265e, #5148c7, #8178ed);
+  color: white;
+}
+
+.hero h1 {
+  max-width: 650px;
+  margin-top: 0;
+  color: white;
+}
+
+.hero p {
+  max-width: 680px;
+  margin-bottom: 25px;
+  color: #e5e4ff;
+  font-size: 16px;
+}
+
+.hero strong {
+  color: white;
+}
+
+/* 7. Buttons */
+.btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  background: #f5f5ff;
+}
+
+.btn-primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  border-color: var(--primary-dark);
+  background: var(--primary-dark);
+  color: white;
+}
+
+.btn-danger {
+  border-color: #f1cbd1;
+  background: #fff0f2;
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-inline {
+  display: inline-flex;
+}
+
+/* 8. Statistics */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+.stat {
+  display: flex;
+  min-height: 120px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.stat-value {
+  color: var(--text);
+  font-size: 27px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.stat-small {
+  font-size: 18px;
+}
+
+/* 9. Forms */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 19px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 45px;
+  padding: 10px 12px;
+  border: 1px solid #dfe1eb;
+  border-radius: 9px;
+  outline: none;
+  background: white;
+  color: var(--text);
+  transition: 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 91, 219, 0.12);
+}
+
+input::placeholder {
+  color: #a1a4b3;
+}
+
+.error {
+  min-height: 0;
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.error:not(:empty) {
+  margin-top: 2px;
+}
+
+/* 10. Toolbar and search */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.toolbar h2 {
+  margin: 0;
+}
+
+.toolbar-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar-controls input {
+  min-width: 190px;
+}
+
+.toolbar-controls select {
+  min-width: 155px;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: normal;
+}
+
+/* 11. Expenses table */
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 15px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.expense-table th {
+  background: #f8f8fc;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expense-table td {
+  font-size: 14px;
+}
+
+.expense-table tbody tr:hover {
+  background: #fafaff;
+}
+
+.expense-table .num {
+  text-align: right;
+}
+
+.expense-table .actions {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Buttons inside table */
+.expense-table .btn {
+  min-height: 32px;
+  padding: 5px 10px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+/* 12. Empty state */
+.empty {
+  padding: 30px 10px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.link-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.link-btn:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* 13. Page lists */
+.page-list {
+  padding-left: 22px;
+}
+
+.page-list li {
+  margin-bottom: 12px;
+}
+
+.hint {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 14. Delete section */
+.danger-zone {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* 15. Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20, 22, 45, 0.55);
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 22px 70px rgba(22, 25, 55, 0.22);
+}
+
+.modal h2 {
+  margin-bottom: 24px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+/* 16. Toast notifications */
+.toast {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 200;
+  max-width: calc(100% - 40px);
+  padding: 13px 20px;
+  border-radius: 10px;
+  background: #29265e;
+  color: white;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: 0.3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 17. Currency page helpers */
+.currency-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.currency-result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #eeedff;
+  color: var(--primary-dark);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hint,
+.empty {
+  line-height: 1.6;
+}
+
+/* 18. Responsive design */
+@media (max-width: 850px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header-row {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .clock {
+    margin-left: 0;
+  }
+
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .toolbar-controls {
+    width: 100%;
+  }
+
+  .toolbar-controls input,
+  .toolbar-controls select {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .page {
+    padding-top: 22px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .hero {
+    padding: 30px 22px;
+  }
+
+  .hero h1 {
+    font-size: 31px;
+  }
+
+  .stats {
+    gap: 10px;
+  }
+
+  .stat {
+    min-height: 105px;
+    padding: 15px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .nav {
+    gap: 2px;
+  }
+
+  .nav a {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .toolbar-controls {
+    flex-direction: column;
+  }
+
+  /* Allow the table to scroll horizontally on small screens */
+  .expense-table {
+    min-width: 650px;
+  }
+
+  .card:has(.expense-table) {
+    overflow-x: auto;
+  }
+
+  .currency-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .toast {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+/* 19. Accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(99, 91, 219, 0.3);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
